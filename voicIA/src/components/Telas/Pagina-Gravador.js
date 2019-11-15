@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { StyleSheet, View, Image, Dimensions} from 'react-native'
-import gravadorImagem from '../../../assets/img/gravadorImagem.png'
+import Recorder from '../Gravador/Recorder'
 import Header from './Header'
 
 class Gravador extends Component {
@@ -9,7 +9,7 @@ class Gravador extends Component {
            
            <View style = {styles.container}>
                 <Header/>
-                <Image onclick  source={gravadorImagem} style = {styles.imagem}/>
+                <Recorder/>
 
             </View>
         )

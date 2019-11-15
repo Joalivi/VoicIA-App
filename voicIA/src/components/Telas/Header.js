@@ -6,7 +6,7 @@ import {
     Platform,
     Image
 } from 'react-native'
-import icone from '../../assets/img/icone.jpg'
+import icone from '../../../assets/img/icone.jpg'
 
 class Header extends Component{
 
