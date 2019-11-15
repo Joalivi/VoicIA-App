@@ -25,7 +25,6 @@ class Header extends Component{
 const styles = StyleSheet.create({
     container:{
         marginTop: Platform.OS=== 'ios' ? 20:0,
-        padding: 10,
         borderBottomWidth: 1,
         borderColor: '#BBB'
     },
@@ -34,15 +33,15 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     image:{
-        height: 30,
-        width:30,
+        height: 50,
+        width:50,
         resizeMode: 'contain'
     },
     title:{
         color:'#000',
         fontFamily:'shelter',
-        height: 30,
-        fontSize: 28
+        height: 50,
+        fontSize: 42
     }
 })
 
