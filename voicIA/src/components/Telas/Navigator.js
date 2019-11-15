@@ -1,17 +1,28 @@
 import React from 'react'
 import {Dimensions} from 'react-native'
+import {createSwitchNavigator} from 'react-navigation'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { createAppContainer } from 'react-navigation'
 
 import Gravador from './Pagina-Gravador'
+import Perfil from './Perfil'
+import Login from './Login'
+
+const loginOrPerfilRouter = createSwitchNavigator({
+    Perfil: Perfil,
+    Auth: Login
+},{
+    initialRouteName: 'Perfil'
+})
 
 var tamIcon = Dimensions.get("window").height / 15
 
 const MenuRoutes ={
+
     Perfil: {
         name: 'Perfil',
-        screen: Gravador,
+        screen: loginOrPerfilRouter,
         navigationOptions:{
             title: 'Perfil',
             tabBarIcon: ({tintColor}) =>
