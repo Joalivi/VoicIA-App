@@ -1,6 +1,7 @@
 import React from 'react'
 import {Dimensions} from 'react-native'
-import {createSwitchNavigator} from 'react-navigation'
+import { createSwitchNavigator} from 'react-navigation'
+import {createStackNavigator} from 'react-navigation-stack'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { createAppContainer } from 'react-navigation'
@@ -8,10 +9,18 @@ import { createAppContainer } from 'react-navigation'
 import Gravador from './Pagina-Gravador'
 import Perfil from './Perfil'
 import Login from './Login'
+import Registro from './Registro'
+
+const authRouter = createStackNavigator({
+    login: {screen: Login, navigationOptions: {title: 'Login'} },
+    Registro: {screen: Registro, navigationOptions: {title:'Registro'}}
+},{
+    initialRouteParams: 'Login'
+})
 
 const loginOrPerfilRouter = createSwitchNavigator({
     Perfil: Perfil,
-    Auth: Login
+    Auth: authRouter
 },{
     initialRouteName: 'Perfil'
 })
