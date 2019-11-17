@@ -18,18 +18,13 @@ class Gravador extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 5,
         flex: 1,
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF'
         
     },
-    imagem: {
-        
-        alignItems: "center",
-        alignContent: "center",
-        top: Dimensions.get('window').height /6,
-        resizeMode: 'contain'
-    }
+    
 })
 
 export default Gravador
