@@ -22,7 +22,7 @@ const loginOrPerfilRouter = createSwitchNavigator({
     Perfil: Perfil,
     Auth: authRouter
 },{
-    initialRouteName: 'Perfil'
+    initialRouteName: 'Auth'
 })
 
 var tamIcon = Dimensions.get("window").height / 15
