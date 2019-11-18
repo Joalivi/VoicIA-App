@@ -8,7 +8,7 @@ import {
   AudioPlayer, 
   AudioRecorder, 
 } from 'react-native-audio-player-recorder'
-//import { Actions } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 
 import RecordButton from './RecordButton'
 import ActionButtons from './ActionButtons'
@@ -95,7 +95,7 @@ export default class Recorder extends Component {
   }
 
   playAudio = () => {
-    //Actions.player({durationSeconds: this.state.audioLength})
+    Actions.player({durationSeconds: this.state.audioLength})
   }
 
   render() {
@@ -120,11 +120,12 @@ export default class Recorder extends Component {
           playPauseHandler={playPauseHandler}
           stopRecording={this.stopRecording}
         />
-        <Button text='Play' isDisabled={!isFinishRecorded} onPressHandler={this.playAudio} />
+        <Button text='Upload' isDisabled={!isFinishRecorded} onPressHandler={this.playAudio} />
       </ScrollView>
     )
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -135,3 +136,4 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 })
+ 
