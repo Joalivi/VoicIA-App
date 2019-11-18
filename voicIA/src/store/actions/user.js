@@ -5,9 +5,11 @@ import {
     USER_LOADED
 } from './actionTypes'
 import axios from 'axios'
+import { setMessage } from './messages'
+import {API_KEY} from 'react-native-dotenv'
 
 const authBaseURL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty'
-const API_KEY = 'AIzaSyCfSJRlI_bFhojJML-DSeZ0-zR9QrVl23o'
+
 
 export const userLogged = user =>{
     return{
@@ -24,6 +26,7 @@ export const logout = () =>  {
 
 export const createUser = user => {
     return dispatch => {
+        dispatch(loadingUser())
         axios.post(`${authBaseURL}/signupNewUser?key=${API_KEY}`,{
             email: user.email,
             password: user.password,
@@ -31,19 +34,32 @@ export const createUser = user => {
         }           
         )
 
-        .catch(err => console.log(err))
+        .catch(err => {
+            dispatch(setMessage({
+                title: 'Erro',
+                text: 'Ocorreu um erro inesperado!'
+            }))
+        })
         .then(res => {
             if(res.data.localId){
                 axios.put(`/users/${res.data.localId}.json`, {
                     name: user.name
                 })
-                .catch(err => console.log(err))
-                .then(res => {
-                    console.log('Usuário criado com sucesso!')
+                .catch(err => {
+                    dispatch(setMessage({
+                        title: 'Erro',
+                        text: 'Ocorreu um erro inesperado!'
+                    }))
                 })
-            }
-        })
-    }
+                .then(() => {
+                delete user.password
+                user.id = res.data.localId
+                dispatch(userLogged(user))
+                dispatch(userLoaded())
+                })
+        }
+    })
+}
 }
 
 export const loadingUser = () => {
@@ -67,18 +83,28 @@ export const login = user => {
             returnSecureToken: true
         })
 
-        .catch(err => console.log(err))
+        .catch(err => {
+            dispatch(setMessage({
+                title: 'Erro',
+                text: 'Ocorreu um erro inesperado!'
+            }))
+        })
         .then(res =>{
             if (res.data.localId){
             axios.get(`/users/${res.data.localId}.json`)
-                .catch(err => console.log(err))
-                .then(res => {
-                    user.password = null
-                    user.name = res.data.name
-                    dispatch(userLogged(user))
-                    dispatch(userLoaded())
-                })
-        }
-
-    })
-}}
+            .catch(err => {
+                dispatch(setMessage({
+                    title: 'Erro',
+                    text: 'Ocorreu um erro inesperado!'
+                }))
+            })
+            .then(res => {
+                delete user.password
+                user.name = res.data.name
+                dispatch(userLogged(user))
+                dispatch(userLoaded())
+            })
+    }
+})
+}
+}
