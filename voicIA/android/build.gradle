@@ -2,11 +2,14 @@
 
 buildscript {
     ext {
-        
-        minSdkVersion = 16
-        compileSdkVersion = 28
-        targetSdkVersion = 28
-    }
+    minSdkVersion = 16
+    compileSdkVersion = 28
+    targetSdkVersion = 28
+    // Remove 'supportLibVersion' property and put specific versions for AndroidX libraries
+    androidXAnnotation = "1.1.0"
+    androidXBrowser = "1.0.0"
+    // Put here other AndroidX dependencies
+  }
     repositories {
         google()
         jcenter()

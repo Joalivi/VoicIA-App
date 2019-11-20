@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { StyleSheet, View, Image, Dimensions} from 'react-native'
 import Recorder from '../Gravador/Recorder'
+import Page from '../Recorder/Principal'
 import Header from './Header'
 
 class Gravador extends Component {
@@ -9,7 +10,7 @@ class Gravador extends Component {
            
            <View style = {styles.container}>
                 <Header/>
-                <Recorder/>
+                <Page/>
 
             </View>
         )
