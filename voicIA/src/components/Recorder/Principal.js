@@ -21,7 +21,8 @@ import AudioRecorderPlayer, {
   
   import Button from './Button';
   import { getString } from '../../../assets/utils/STRINGS';
-
+  import {connect} from 'react-redux'
+  import {addAudio} from '../../store/actions/audios'
   
   const styles = StyleSheet.create({
     container: {
@@ -131,7 +132,7 @@ import AudioRecorderPlayer, {
         currentPositionSec: 0,
         currentDurationSec: 0,
         playTime: '00:00:00',
-        duration: '00:00:00',
+        duration: '00:00:00'
       };
   
       this.audioRecorderPlayer = new AudioRecorderPlayer();
@@ -323,7 +324,7 @@ import AudioRecorderPlayer, {
      
       const path = Platform.select({
         ios: 'hello.m4a',
-        android: 'sdcard/hello.mp4',
+        android: 'sdcard/'+ this.props.name+ '1.mp4',
       });
       const audioSet = {
         AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
@@ -334,6 +335,21 @@ import AudioRecorderPlayer, {
       };
       console.log('audioSet', audioSet);
       const uri = await this.audioRecorderPlayer.startRecorder(path, audioSet);
+      
+      this.props.onAddAudio({
+        id: Math.random(),
+        name: this.props.name,
+        uri: uri
+      })
+      this.setState({
+        isLoggingIn: false,
+        recordSecs: 0,
+        recordTime: '00:00:00',
+        currentPositionSec: 0,
+        currentDurationSec: 0,
+        playTime: '00:00:00',
+        duration: '00:00:00'
+      })
     }
 
 
@@ -381,6 +397,16 @@ import AudioRecorderPlayer, {
     };
   }
 
+  const mapStateToProps = ({user}) => {
+      return{
+        name: user.name
+      }
+  }
 
+  const mapDispatchToProps = dispatch => {
+    return{
+      onAddAudio: audio => dispatch(addAudio(audio))
+    }
+  }
   
-  export default Page;
+  export default connect(mapStateToProps, mapDispatchToProps)(Page);

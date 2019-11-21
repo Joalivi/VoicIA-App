@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from 'react-navigation-tabs'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { createAppContainer } from 'react-navigation'
 
+import Detalhes from './Detalhes'
 import Gravador from './Pagina-Gravador'
 import Perfil from './Perfil'
 import Login from './Login'
@@ -51,7 +52,7 @@ const MenuRoutes ={
     
     Detalhes: {
         name: 'Detalhes',
-        screen: Gravador,
+        screen: Detalhes,
         navigationOptions:{
             title: 'Detalhes',
             tabBarIcon: ({tintColor}) =>
