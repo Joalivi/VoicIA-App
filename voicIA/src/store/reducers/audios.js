@@ -1,26 +1,21 @@
-import {ADD_AUDIO} from '../actions/actionTypes'
+import {SET_AUDIOS} from '../actions/actionTypes'
 import { Actions } from 'react-native-router-flux'
 
 const initialState = {
-    audios: [{
-        id: Math.random(),
-        user_id: '',
-        uri: null
-    }]
+    audios: []
     
 }
 
 const reducer = (state = initialState, action) => {
     
     switch (action.type) {
-        case ADD_AUDIO:
+        case SET_AUDIOS:
             return {
                 ...state,
-                audios: state.audios.concat({
-                    ...action.payload
-                })
-                
-            }
+                audios: action.payload
+                }
+             
+            
         default:
             return state
     }

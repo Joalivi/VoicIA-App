@@ -174,7 +174,8 @@ import AudioRecorderPlayer, {
           </View>
           <View style={styles.viewPlayer}>
             <TouchableOpacity
-              style={styles.viewBarWrapper}>
+              style={styles.viewBarWrapper}
+              onPress={this.onStatusPress}>
               <View style={styles.viewBar}>
                 <View style={[styles.viewBarPlay, { width: playWidth }]} />
               </View>
@@ -190,30 +191,7 @@ import AudioRecorderPlayer, {
               >
                 {getString('PLAY')}
               </Button>
-              <Button
-                style={[
-                  styles.btn,
-                  {
-                    marginLeft: 12 * ratio,
-                  },
-                ]}
-                onPress={this.onPausePlay}
-                textStyle={styles.txt}
-              >
-                {getString('PAUSE')}
-              </Button>
-              <Button
-                style={[
-                  styles.btn,
-                  {
-                    marginLeft: 12 * ratio,
-                  },
-                ]}
-                onPress={this.onStopPlay}
-                textStyle={styles.txt}
-              >
-                {getString('STOP')}
-              </Button>
+              
             </View>
             <Button
                 style={[
@@ -327,12 +305,13 @@ import AudioRecorderPlayer, {
     onUpload = async () => {
       
       var uri = await `sdcard/hello.mp4`
-
+      var info = audioSet
 
       this.props.onAddAudio({
-        id: id_ramdom,
+        id: Math.random() * 10,
         user_id: this.props.user_id,
-        uri: uri
+        uri: uri,
+        info: info
       })
       this.setState({
         isLoggingIn: false,

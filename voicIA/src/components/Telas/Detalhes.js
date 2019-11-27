@@ -7,8 +7,14 @@ import {
 } from 'react-native'
 import Header from './Header'
 import Audio from './Audio'
+import {fetchAudios} from '../../store/actions/audios'
 
 class Detalhes extends Component {
+
+    componentDidMount = () => {
+        this.props.onFetchAudios()
+    }
+    
     render(){
         return (
             <View style={styles.container}>
@@ -37,10 +43,10 @@ const mapStateToProps = ({ audios }) => {
     }
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onFetchPosts: () => dispatch(fetchPosts())
-//     }
-// }
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchAudios: () => dispatch(fetchAudios())
+    }
+}
 
-export default connect(mapStateToProps)(Detalhes)
+export default connect(mapStateToProps, mapDispatchToProps)(Detalhes)
