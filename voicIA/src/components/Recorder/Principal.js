@@ -18,11 +18,12 @@ import AudioRecorderPlayer, {
   import React, { Component } from 'react';
 
   import { ratio, screenWidth } from '../../../assets/utils/Styles';
-  
   import Button from './Button';
   import { getString } from '../../../assets/utils/STRINGS';
   import {connect} from 'react-redux'
   import {addAudio} from '../../store/actions/audios'
+  
+  //const fs = require('fs')
   
   const styles = StyleSheet.create({
     container: {
@@ -132,7 +133,8 @@ import AudioRecorderPlayer, {
         currentPositionSec: 0,
         currentDurationSec: 0,
         playTime: '00:00:00',
-        duration: '00:00:00'
+        duration: '00:00:00',
+
       };
   
       this.audioRecorderPlayer = new AudioRecorderPlayer();
@@ -253,6 +255,8 @@ import AudioRecorderPlayer, {
     };
   
     onStartRecord = async () => {
+
+
       if (Platform.OS === 'android') {
         try {
           const granted = await PermissionsAndroid.request(
@@ -297,7 +301,7 @@ import AudioRecorderPlayer, {
       }
       const path = Platform.select({
         ios: 'hello.m4a',
-        android: 'sdcard/hello.mp4',
+        android: `sdcard/hello.mp4`,
       });
       const audioSet = {
         AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
@@ -321,24 +325,13 @@ import AudioRecorderPlayer, {
 
 
     onUpload = async () => {
-     
-      const path = Platform.select({
-        ios: 'hello.m4a',
-        android: 'sdcard/'+ this.props.name+ '1.mp4',
-      });
-      const audioSet = {
-        AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
-        AudioSourceAndroid: AudioSourceAndroidType.MIC,
-        AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.high,
-        AVNumberOfChannelsKeyIOS: 2,
-        AVFormatIDKeyIOS: AVEncodingOption.aac,
-      };
-      console.log('audioSet', audioSet);
-      const uri = await this.audioRecorderPlayer.startRecorder(path, audioSet);
       
+      var uri = await `sdcard/hello.mp4`
+
+
       this.props.onAddAudio({
-        id: Math.random(),
-        name: this.props.name,
+        id: id_ramdom,
+        user_id: this.props.user_id,
         uri: uri
       })
       this.setState({
@@ -348,7 +341,7 @@ import AudioRecorderPlayer, {
         currentPositionSec: 0,
         currentDurationSec: 0,
         playTime: '00:00:00',
-        duration: '00:00:00'
+        duration: '00:00:00',
       })
     }
 
@@ -399,12 +392,15 @@ import AudioRecorderPlayer, {
 
   const mapStateToProps = ({user}) => {
       return{
-        name: user.name
+        name: user.name,
+        user_id: user.id,
+        email: user.email
       }
   }
 
   const mapDispatchToProps = dispatch => {
     return{
+      
       onAddAudio: audio => dispatch(addAudio(audio))
     }
   }

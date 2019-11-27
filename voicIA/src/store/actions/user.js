@@ -43,7 +43,8 @@ export const createUser = user => {
         .then(res => {
             if(res.data.localId){
                 axios.put(`/users/${res.data.localId}.json`, {
-                    name: user.name
+                    name: user.name,
+                    id: res.data.localId
                 })
                 .catch(err => {
                     dispatch(setMessage({
@@ -53,7 +54,7 @@ export const createUser = user => {
                 })
                 .then(() => {
                 delete user.password
-                user.id = res.data.localId
+                id = res.data.localId
                 dispatch(userLogged(user))
                 dispatch(userLoaded())
                 })
@@ -90,6 +91,8 @@ export const login = user => {
             }))
         })
         .then(res =>{
+            user.id = res.data.localId
+            console.log("Aquii" + res.data.localId)
             if (res.data.localId){
             axios.get(`/users/${res.data.localId}.json`)
             .catch(err => {
@@ -101,6 +104,7 @@ export const login = user => {
             .then(res => {
                 delete user.password
                 user.name = res.data.name
+                
                 dispatch(userLogged(user))
                 dispatch(userLoaded())
             })

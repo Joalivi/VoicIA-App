@@ -179,6 +179,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-audiowaveform')
     implementation project(':react-native-audio-recorder-player')
     implementation project(':react-native-audio-player-recorder')
     implementation fileTree(dir: "libs", include: ["*.jar"])

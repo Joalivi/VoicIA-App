@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, View, Image, Dimensions, Text } from 'react-native'
-
+import WaveForm from 'react-native-audiowaveform';
 
 class Audio extends Component {
     render() {
         
         return (
             <View style={styles.container}>
-                <Text>Hello</Text>
+                <Text>Dados extraidos audio 1 usuário {this.props.name}</Text>
+                
             </View>
         )
     }
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const mapStateToProps = ({ user }) => {
+const mapStateToProps = ({user}) => {
     return {
         name: user.name
     }

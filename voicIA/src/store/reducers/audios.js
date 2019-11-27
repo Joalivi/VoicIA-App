@@ -4,7 +4,7 @@ import { Actions } from 'react-native-router-flux'
 const initialState = {
     audios: [{
         id: Math.random(),
-        name: '',
+        user_id: '',
         uri: null
     }]
     

@@ -7,7 +7,8 @@ USER_LOADED
 
 const initialState = {
     name:null,
-    email: null
+    email: null,
+    id: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,14 +17,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 name: action.payload.name,
-                email: action.payload.email
+                email: action.payload.email,
+                id: action.payload.id
             }
         
         case USER_LOGGED_OUT:
             return{
                 ...state,
                 name: null,
-                email: null
+                email: null,
+                id: null
             }
         
         case LOADING_USER:
