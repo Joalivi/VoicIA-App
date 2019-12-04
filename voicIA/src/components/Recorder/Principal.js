@@ -23,6 +23,7 @@ import AudioRecorderPlayer, {
   import {connect} from 'react-redux'
   import {addAudio} from '../../store/actions/audios'
   
+ 
   //const fs = require('fs')
   
   const styles = StyleSheet.create({
@@ -134,13 +135,29 @@ import AudioRecorderPlayer, {
         currentDurationSec: 0,
         playTime: '00:00:00',
         duration: '00:00:00',
-
+        date: ''
       };
   
+      
       this.audioRecorderPlayer = new AudioRecorderPlayer();
       this.audioRecorderPlayer.setSubscriptionDuration(0.09); // optional. Default is 0.1
     }
   
+    componentDidMount() {
+      var that = this;
+      var date = new Date().getDate(); //Current Date
+      var month = new Date().getMonth() + 1; //Current Month
+      var year = new Date().getFullYear(); //Current Year
+      var hours = new Date().getHours(); //Current Hours
+      var min = new Date().getMinutes(); //Current Minutes
+      var sec = new Date().getSeconds(); //Current Seconds
+      that.setState({
+        //Setting the value of the date time
+        date:
+          date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec,
+      });
+    }
+    
     render() {
       let playWidth =
         (this.state.currentPositionSec / this.state.currentDurationSec) *
@@ -305,13 +322,18 @@ import AudioRecorderPlayer, {
     onUpload = async () => {
       
       var uri = await `sdcard/hello.mp4`
-      var info = audioSet
+      var duracao= this.state.recordTime
 
       this.props.onAddAudio({
         id: Math.random() * 10,
-        user_id: this.props.user_id,
+        user_id: this.props.id,
+        user_name: this.props.name,
         uri: uri,
-        info: info
+        duracao: duracao,
+        formato: 'mp4',
+        canais: '2',
+        qualidade: "High",
+        data: this.state.date
       })
       this.setState({
         isLoggingIn: false,
@@ -372,7 +394,7 @@ import AudioRecorderPlayer, {
   const mapStateToProps = ({user}) => {
       return{
         name: user.name,
-        user_id: user.id,
+        id: user.id,
         email: user.email
       }
   }
